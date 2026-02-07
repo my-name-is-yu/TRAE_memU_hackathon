@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TripMemo - AI旅程管理アプリ
 
-## Getting Started
+旅行中の予定変更に強い、ソースベースの旅程管理アプリ。
+行きたい場所を「ソース」として登録し、AIが最新のソースから最適な提案を行います。
 
-First, run the development server:
+**差別化ポイント:** 普通のRAGと違い、不要になったカテゴリを「忘却」できる。忘却後はAIの提案に一切出てこない。
+
+## 主な機能
+
+### ソース管理
+- 行きたい場所をカテゴリ付きで登録（観光・グルメ・自然・買い物・文化・その他）
+- カテゴリ別のグループ表示
+- 個別削除 / カテゴリ一括忘却
+
+### カテゴリ忘却（コア機能）
+- 「カフェ系いらない」とチャットで入力 → グルメカテゴリを自動検知して一括忘却
+- ソースパネルの「忘却」ボタンからも実行可能
+- 忘却はmemU APIに記録され、長期記憶からも除外される
+- 二重ガード: ソースフィルタリング + Claudeプロンプトでの明示的禁止
+
+### AIチャット
+- 登録ソースをもとに旅程を自動生成
+- 「今30分空いた」→ ソースから候補をクイック提案
+- 忘却済みカテゴリは絶対に提案に含まれない
+
+### タイムライン
+- 旅程を日付別・時系列で表示
+- イベントごとにソースバッジ表示
+- 個別イベントの変更リクエスト
+
+## 技術スタック
+
+- **フロントエンド:** Next.js 14 (App Router) + React + TypeScript + Tailwind CSS
+- **AI:** Claude API (claude-sonnet-4-5)
+- **記憶:** memU API (長期記憶の記録・忘却・検索)
+- **永続化:** localStorage (トリップ・ソース・除外カテゴリ)
+
+## セットアップ
+
+### 前提条件
+- Node.js 18+
+- memU API キー
+- Anthropic API キー
+
+### インストール
+
+```bash
+cd tripmemo
+npm install
+```
+
+### 環境変数
+
+`.env.local` を作成:
+
+```
+MEMU_API_KEY=your_memu_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+```
+
+### 起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 を開く。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## デモシナリオ（2分）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. ソース追加（30秒）
+左パネルで以下を追加:
 
-## Learn More
+| 場所名 | カテゴリ |
+|---|---|
+| スターバックス 嵐山店 | グルメ |
+| % ARABICA 京都東山 | グルメ |
+| 金閣寺 | 観光 |
+| 伏見稲荷大社 | 観光 |
+| 嵐山竹林 | 自然 |
+| 京都国立博物館 | 文化 |
 
-To learn more about Next.js, take a look at the following resources:
+### 2. AI提案（30秒）
+チャットに入力:
+```
+今30分空いた、近くでどこ行ける？
+```
+→ AIがカフェ含む候補を提案
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. カテゴリ忘却（60秒）
+チャットに入力:
+```
+カフェ系いらない
+```
+→ グルメカテゴリが一括忘却され、ソースパネルから消える
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+再度同じ質問:
+```
+今30分空いた、近くでどこ行ける？
+```
+→ カフェが一切出ない。観光・自然・文化のみ提案される。
 
-## Deploy on Vercel
+## アーキテクチャ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+ユーザー操作
+    |
+    v
+[SourcePanel] ──→ localStorage (ソース・除外カテゴリ)
+[ChatPanel]   ──→ /api/chat ──→ Claude API (除外カテゴリ付きプロンプト)
+                   /api/memory ──→ memU API (記憶・忘却)
+    |
+    v
+[Timeline] ← 旅程表示
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 忘却の二重ガード
+
+```
+1. フロントエンド: 除外カテゴリのソースをAPIに送らない
+2. Claudeプロンプト: 「忘却済みカテゴリ — 絶対禁止」ルールを注入
+3. memU: カテゴリ忘却を長期記憶に記録（retrieve時にも反映）
+```
+
+## ディレクトリ構成
+
+```
+src/
+├── types/
+│   └── trip.ts              # 型定義（Source, Trip, TripEvent, ChatMessage）
+├── lib/
+│   ├── storage.ts           # localStorage管理 + 除外カテゴリ管理
+│   ├── claude.ts            # Claude API連携（除外カテゴリ対応プロンプト）
+│   └── memu.ts              # memU API連携（記憶・忘却・カテゴリ忘却）
+├── components/
+│   ├── Header.tsx           # ヘッダー
+│   ├── SourcePanel.tsx      # ソース管理（カテゴリ別表示・忘却ボタン）
+│   ├── Timeline.tsx         # タイムライン表示
+│   ├── ChatPanel.tsx        # AIチャット
+│   └── ChangeModal.tsx      # イベント変更モーダル
+└── app/
+    ├── page.tsx             # メインページ（3カラムレイアウト・忘却ロジック）
+    ├── layout.tsx           # ルートレイアウト
+    └── api/
+        ├── chat/route.ts    # チャットAPI（除外カテゴリ受け渡し）
+        └── memory/route.ts  # memU API（カテゴリ忘却アクション対応）
+```

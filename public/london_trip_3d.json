@@ -1,0 +1,400 @@
+{
+  "trip": {
+    "id": "trip_london_3d_demo",
+    "title": "London 3-day demo trip",
+    "city": "London",
+    "country": "UK",
+    "start_date": "2026-03-20",
+    "end_date": "2026-03-22",
+    "timezone": "Europe/London",
+    "assumptions": {
+      "travel_style": "walk + tube",
+      "pace": "medium",
+      "budget": "mid",
+      "group": "solo",
+      "default_transit_buffer_min": 15
+    }
+  },
+  "taxonomies": {
+    "categories": [
+      "cafe",
+      "museum",
+      "market",
+      "viewpoint",
+      "park",
+      "bookstore",
+      "neighborhood_walk",
+      "food",
+      "shop",
+      "other"
+    ],
+    "tags": [
+      "quick",
+      "indoors",
+      "outdoors",
+      "rain_ok",
+      "photo",
+      "classic",
+      "local",
+      "free",
+      "ticket_needed"
+    ]
+  },
+  "context": {
+    "anchors": [
+      {
+        "anchor_id": "anchor_covent_garden",
+        "label": "Covent Garden area",
+        "lat": 51.5129,
+        "lng": -0.1246
+      },
+      {
+        "anchor_id": "anchor_kings_cross",
+        "label": "King's Cross / St Pancras",
+        "lat": 51.5308,
+        "lng": -0.1238
+      },
+      {
+        "anchor_id": "anchor_south_bank",
+        "label": "South Bank",
+        "lat": 51.5076,
+        "lng": -0.1163
+      },
+      {
+        "anchor_id": "anchor_notting_hill",
+        "label": "Notting Hill",
+        "lat": 51.509,
+        "lng": -0.196
+      }
+    ],
+    "user_preferences": {
+      "likes": ["good coffee", "walkable neighborhoods", "iconic sights", "markets"],
+      "dislikes": [],
+      "dietary": [],
+      "constraints": ["avoid long queues if possible"]
+    }
+  },
+  "sources": [
+    {
+      "id": "src_british_museum",
+      "type": "place",
+      "title": "The British Museum",
+      "category": "museum",
+      "tags": ["classic", "indoors", "free", "photo"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 120,
+      "priority": 5,
+      "notes": "Large; focus on a few highlights to keep time."
+    },
+    {
+      "id": "src_national_gallery",
+      "type": "place",
+      "title": "The National Gallery (highlights)",
+      "category": "museum",
+      "tags": ["indoors", "free", "quick"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 60,
+      "priority": 4,
+      "notes": "Do a 45–60min highlights route."
+    },
+    {
+      "id": "src_somerset_house",
+      "type": "place",
+      "title": "Somerset House courtyard",
+      "category": "other",
+      "tags": ["photo", "indoors", "outdoors"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 45,
+      "priority": 3,
+      "notes": "Architectural, flexible; good fallback."
+    },
+    {
+      "id": "src_neal_yard",
+      "type": "place",
+      "title": "Neal's Yard (quick photo + stroll)",
+      "category": "neighborhood_walk",
+      "tags": ["quick", "photo", "outdoors"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 25,
+      "priority": 4,
+      "notes": "Colorful courtyard; easy 20–30min stop."
+    },
+    {
+      "id": "src_bookstore_hatchards",
+      "type": "place",
+      "title": "Hatchards (bookstore browse)",
+      "category": "bookstore",
+      "tags": ["indoors", "quick", "classic"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 35,
+      "priority": 3,
+      "notes": "Quick browse; nice souvenir option."
+    },
+    {
+      "id": "src_borough_market",
+      "type": "place",
+      "title": "Borough Market",
+      "category": "market",
+      "tags": ["food", "local", "indoors"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 75,
+      "priority": 5,
+      "notes": "Best around lunch; can get crowded."
+    },
+    {
+      "id": "src_tate_modern",
+      "type": "place",
+      "title": "Tate Modern",
+      "category": "museum",
+      "tags": ["indoors", "photo", "free"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 120,
+      "priority": 4,
+      "notes": "Great for modern art; riverside walk nearby."
+    },
+    {
+      "id": "src_sky_garden",
+      "type": "place",
+      "title": "Sky Garden",
+      "category": "viewpoint",
+      "tags": ["photo", "indoors", "ticket_needed"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 60,
+      "priority": 4,
+      "notes": "Reserve free ticket if possible; great skyline."
+    },
+    {
+      "id": "src_south_bank_walk",
+      "type": "activity",
+      "title": "South Bank riverside walk (quick segment)",
+      "category": "neighborhood_walk",
+      "tags": ["outdoors", "photo", "free", "quick"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 45,
+      "priority": 4,
+      "notes": "Pick a short segment; very flexible."
+    },
+    {
+      "id": "src_st_pauls",
+      "type": "place",
+      "title": "St Paul's Cathedral",
+      "category": "other",
+      "tags": ["classic", "indoors", "ticket_needed", "photo"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 75,
+      "priority": 4,
+      "notes": "Iconic; dome views if time."
+    },
+    {
+      "id": "src_camden_market",
+      "type": "place",
+      "title": "Camden Market",
+      "category": "market",
+      "tags": ["food", "local", "indoors"],
+      "anchor_id": "anchor_kings_cross",
+      "duration_min": 90,
+      "priority": 4,
+      "notes": "Fun browsing; street food."
+    },
+    {
+      "id": "src_regents_park",
+      "type": "place",
+      "title": "Regent's Park",
+      "category": "park",
+      "tags": ["outdoors", "free", "photo"],
+      "anchor_id": "anchor_kings_cross",
+      "duration_min": 60,
+      "priority": 3,
+      "notes": "Good reset; skip if heavy rain."
+    },
+    {
+      "id": "src_harry_potter_platform_934",
+      "type": "place",
+      "title": "Platform 9¾ (King's Cross)",
+      "category": "other",
+      "tags": ["photo", "quick"],
+      "anchor_id": "anchor_kings_cross",
+      "duration_min": 20,
+      "priority": 2,
+      "notes": "Quick photo spot; queues possible."
+    },
+    {
+      "id": "src_notting_hill_walk",
+      "type": "activity",
+      "title": "Notting Hill neighborhood walk",
+      "category": "neighborhood_walk",
+      "tags": ["outdoors", "photo", "classic"],
+      "anchor_id": "anchor_notting_hill",
+      "duration_min": 75,
+      "priority": 4,
+      "notes": "Colorful streets; flexible pace."
+    },
+    {
+      "id": "src_portobello_road_market",
+      "type": "place",
+      "title": "Portobello Road Market",
+      "category": "market",
+      "tags": ["outdoors", "local", "photo"],
+      "anchor_id": "anchor_notting_hill",
+      "duration_min": 90,
+      "priority": 4,
+      "notes": "Best on market days; still nice as a walk."
+    },
+
+    {
+      "id": "src_cafe_monmouth",
+      "type": "place",
+      "title": "Monmouth Coffee (Covent Garden)",
+      "category": "cafe",
+      "tags": ["quick", "indoors", "local"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 30,
+      "priority": 5,
+      "notes": "Signature coffee; great for a short break."
+    },
+    {
+      "id": "src_cafe_watchhouse",
+      "type": "place",
+      "title": "WatchHouse (Covent Garden)",
+      "category": "cafe",
+      "tags": ["quick", "indoors"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 35,
+      "priority": 4,
+      "notes": "Consistently good espresso; easy stop."
+    },
+    {
+      "id": "src_cafe_prufrock",
+      "type": "place",
+      "title": "Prufrock Coffee",
+      "category": "cafe",
+      "tags": ["local", "indoors"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 40,
+      "priority": 4,
+      "notes": "Coffee nerd spot; calm atmosphere."
+    },
+    {
+      "id": "src_cafe_kaffeine",
+      "type": "place",
+      "title": "Kaffeine",
+      "category": "cafe",
+      "tags": ["local", "indoors"],
+      "anchor_id": "anchor_covent_garden",
+      "duration_min": 40,
+      "priority": 4,
+      "notes": "Strong flat white; good pastries."
+    },
+    {
+      "id": "src_cafe_rosslyn",
+      "type": "place",
+      "title": "Rosslyn Coffee",
+      "category": "cafe",
+      "tags": ["quick", "indoors"],
+      "anchor_id": "anchor_south_bank",
+      "duration_min": 25,
+      "priority": 4,
+      "notes": "Fast, quality coffee; ideal for spare time."
+    }
+  ],
+  "timeline": [
+    {
+      "day": "Day 1",
+      "date": "2026-03-20",
+      "base_anchor_id": "anchor_covent_garden",
+      "blocks": [
+        {
+          "id": "blk_d1_morning_museum",
+          "start": "10:00",
+          "end": "12:00",
+          "title": "British Museum (highlights)",
+          "source_id": "src_british_museum"
+        },
+        {
+          "id": "blk_d1_lunch_market",
+          "start": "12:30",
+          "end": "13:45",
+          "title": "Borough Market lunch",
+          "source_id": "src_borough_market"
+        },
+        {
+          "id": "blk_d1_cafe_monmouth",
+          "start": "14:00",
+          "end": "14:30",
+          "title": "Monmouth Coffee break",
+          "source_id": "src_cafe_monmouth"
+        },
+        {
+          "id": "blk_d1_afternoon_gallery",
+          "start": "15:00",
+          "end": "16:00",
+          "title": "National Gallery (highlights)",
+          "source_id": "src_national_gallery"
+        },
+        {
+          "id": "blk_d1_evening_walk",
+          "start": "17:30",
+          "end": "18:15",
+          "title": "Neal's Yard quick stroll",
+          "source_id": "src_neal_yard"
+        }
+      ]
+    },
+    {
+      "day": "Day 2",
+      "date": "2026-03-21",
+      "base_anchor_id": "anchor_south_bank",
+      "blocks": [
+        {
+          "id": "blk_d2_morning_tate",
+          "start": "10:30",
+          "end": "12:30",
+          "title": "Tate Modern",
+          "source_id": "src_tate_modern"
+        },
+        {
+          "id": "blk_d2_cafe_watchhouse",
+          "start": "12:45",
+          "end": "13:20",
+          "title": "WatchHouse coffee stop",
+          "source_id": "src_cafe_watchhouse"
+        },
+        {
+          "id": "blk_d2_afternoon_view",
+          "start": "14:30",
+          "end": "15:30",
+          "title": "Sky Garden",
+          "source_id": "src_sky_garden"
+        },
+        {
+          "id": "blk_d2_evening_walk",
+          "start": "16:30",
+          "end": "17:15",
+          "title": "South Bank riverside walk",
+          "source_id": "src_south_bank_walk"
+        }
+      ]
+    },
+    {
+      "day": "Day 3",
+      "date": "2026-03-22",
+      "base_anchor_id": "anchor_covent_garden",
+      "blocks": [
+        {
+          "id": "blk_d3_museum_long",
+          "start": "10:00",
+          "end": "15:00",
+          "title": "National Gallery (full visit)",
+          "source_id": "src_national_gallery"
+        },
+        {
+          "id": "blk_d3_next_block_fixed",
+          "start": "15:00",
+          "end": "16:30",
+          "title": "Notting Hill neighborhood walk",
+          "source_id": "src_notting_hill_walk"
+        }
+      ]
+    }
+  ]
+}
