@@ -1,5 +1,8 @@
 # TripMemo - AI旅程管理アプリ
 
+- [デモ動画 (YouTube)](https://youtu.be/RLIS7Qeklts)
+- [スライド資料 (Google Drive)](https://drive.google.com/file/d/1Cv9Q0YJ3F_7npWPqIxmPKg5o5NmUzViS/view?usp=sharing)
+
 旅行中の予定変更に強い、ソースベースの旅程管理アプリ。
 行きたい場所を「ソース」として登録し、AIが最新のソースから最適な提案を行います。
 
